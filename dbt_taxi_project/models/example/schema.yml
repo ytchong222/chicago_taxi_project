@@ -1,0 +1,14 @@
+
+version: 2
+
+models:
+  - name: taxi_trips_summary
+    description: "A starter dbt model"
+    columns:
+      - name: taxi_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  
