@@ -15,8 +15,9 @@ WITH raw_data AS (
 )
 
 SELECT
+    (FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp)) as tdate,
     taxi_id,
-    COUNT(*) AS trip_count,
+    COUNT(taxi_id) AS trip_count,
     SUM(fare) AS total_fare,
     SUM(tips) AS total_tips,
     SUM(trip_miles) AS total_miles,
@@ -24,4 +25,4 @@ SELECT
 FROM
     raw_data
 GROUP BY
-    taxi_id
+    taxi_id,(FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp))

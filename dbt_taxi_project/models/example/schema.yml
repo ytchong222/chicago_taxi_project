@@ -8,6 +8,14 @@ models:
       - name: taxi_id
         description: "The primary key for this table"
         data_tests:
+          - not_null
+          
+  - name: daily_taxi_trips_summary
+    description: "A starter dbt model"
+    columns:
+      - name: tdate
+        description: "The primary key for this table"
+        data_tests:
           - unique
           - not_null
 
