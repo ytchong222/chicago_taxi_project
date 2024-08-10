@@ -22,7 +22,8 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install dbt-bigquery
-
+    
+         
     - name: Create service account key file
       run: |
         echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
@@ -39,7 +40,14 @@ jobs:
          cat /tmp/gcp-key.json  # Display the decoded key (For debugging purposes only, remove this line after confirming it's correct)
       env:
         GCP_SA_KEY_BASE64: ${{ secrets.GCP_SA_KEY_BASE64 }}
-
+    
+    - name: Set up dbt profiles directory
+      run: |
+        mkdir -p /home/runner/.dbt
+        echo "$DBT_PROFILES_YML" > /home/runner/.dbt/profiles.yml
+      env:
+        DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
+         
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
       run: |
