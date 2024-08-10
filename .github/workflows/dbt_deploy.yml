@@ -36,10 +36,8 @@ jobs:
     - name: Decode and save service account key
       run: |
         echo "$GCP_SA_KEY" | base64 -d > /home/runner/work/_temp/gcp-key.json
-        echo "GOOGLE_APPLICATION_CREDENTIALS=/home/runner/work/_temp/gcp-key.json" >> $GITHUB_ENV
       env:
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-
 
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
