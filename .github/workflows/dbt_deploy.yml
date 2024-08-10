@@ -24,14 +24,14 @@ jobs:
         pip install dbt-bigquery
 
     - name: Create service account key file
-      run: echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
+      run: |
+        echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
+        echo "GOOGLE_APPLICATION_CREDENTIALS=${{ runner.temp }}/gcp-key.json" >> $GITHUB_ENV
 
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: chicagotaxitrips-431912
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp-key.json
 
     - name: Set up DBT Profiles
       run: |
@@ -39,10 +39,7 @@ jobs:
         echo "$DBT_PROFILES_YML" > ~/.dbt/profiles.yml
       env:
         DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
-        
-    - name: Print GCP Key File
-      run: cat ${{ runner.temp }}/gcp-key.json
-      
+
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
       run: |
@@ -57,5 +54,3 @@ jobs:
       with:
         name: dbt-logs
         path: target/*.log
-    
-    
