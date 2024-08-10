@@ -37,6 +37,7 @@ jobs:
         DBT_PROFILES: ${{ secrets.DBT_PROFILES_YML }}  # Use secrets to store profiles.yml content
 
     - name: Run DBT Models
+      working-directory: ../chicago_taxi_project/dbt_taxi_project  # Set the working directory to where dbt_project.yml is located
       run: |
         dbt deps    # Install dependencies
         dbt seed    # Load seeds (optional)
