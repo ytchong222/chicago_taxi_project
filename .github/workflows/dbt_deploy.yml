@@ -23,11 +23,15 @@ jobs:
         pip install --upgrade pip
         pip install dbt-bigquery
 
+    - name: Create service account key file
+      run: echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
+
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
         project_id: chicagotaxitrips-431912
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp-key.json
 
     - name: Set up DBT Profiles
       run: |
@@ -43,6 +47,8 @@ jobs:
         dbt seed    # Load seeds (optional)
         dbt run     # Run the models
         dbt test    # Run tests (optional)
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcp-key.json
 
     - name: Upload Artifacts (Optional)
       if: success()
