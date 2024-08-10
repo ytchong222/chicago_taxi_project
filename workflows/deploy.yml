@@ -1,0 +1,39 @@
+name: Deploy DAGs to Cloud Composer
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+        version: 'latest'
+        service_account_key: ${{  "type": "service_account",
+                                   "project_id": "chicagotaxitrips-431912",
+  "private_key_id": "db52c7c311c775ce13f2d0b462ac4980c0767625",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDcjyWbqplLNfno\np5s2yFAJDVH7ALkmRGIDfsn8XIjz8HTB6X8qgC9zVuQMe1TP6dPzaeRW4B6I8Ew3\niuL4Ko0FJg4RXLpgEQSaJ7JkaYmaFVuESFxp6XtGnfTqpKxXjmZKwsDOfUCEMz3W\nAhLgRhTMlCZkXGc7+fbG7Yxv6+TIzp/9GUed/S0Igd7MsuAfmeY6zg+ZuT9DxyKV\nLvgbXNnFFDzRfZ7VG1sC96UPDSG3IC9UbvczlH5mSlH0cKcr7D5BFM9KjONSivNP\n1VdxPH2yTSyTZi6LthVUk6fT8YHZJpHYJYp6JKEdXvz6NzED4bG1d9oG3axovZ1j\nQg7Om1VJAgMBAAECggEAHNMkchywnhC20X4eHeG9/ADepvQoPmUPfi9yzGV3jJHv\nYGxYr0BDc0p20V7I7cc8aQJ80hHGS9VD0Lp5AT/mYDbh/cjlnqp6tH7dpJvaXOXP\nqREf6sOV1dvM52GQGH1Gxxx+wD3EUcK0oSRyPRdLnpT6E4G0CDWZ19Ox1+q3YrrI\nDtHcBVsWZXyBoX96Q/addvdQ9g+d407TlB2jfCW8RLq+AJ6ljPx9VvhVxLmmVizf\nb89n2T2S/Ds/2+4anYO/CjjbHbB1Gz12cKyuyH0afVXOKD5UK3OlnDii7S0H+RtH\neIHn0tiA3cRDRCTRi/Ir6ToE//FlIlWVZumc5x5mEQKBgQD/US4fnTe/Awlbqhpk\n90AvhUuX8CGs3Zaq7ksBcowOrVKwIRWinZjrMJkgyLy3BXK3nAsPIwTUtkzzBkmG\nbvuapsmF474tPZGl36amM9CN39+k/0ZKe871i6Itct2LTY0XvPM1rv/8pLXP3rAM\nsICrNibbeiTqWv0EhUKu3E1xZQKBgQDdJiraywcDig/HA1u5QQMzsBONHI7gLD4w\nm3djbqUVQ3vEPfisVZOkpuPrY+ROXUtiHrSOtPfowl1P5AWEKRkIVHJIKOuAJCP2\nudNOx7jIQ/9fpTTj+qCVhaAs4ea03/gHXlD1J+i5NM8LcLWRoxoDYIC4ble0s442\nRzTpYnBoFQKBgQCizeM5aYkolgkbmGZoR3l4U+kWI5t1nX771COj8qT4nvEBOreP\nECt4nW6nhxk/I4w5JJmwt0XXVb/PoAy2WoK55OzQIZ8dPgtn2CtuA9BTB5SWo+jw\nie44iSeLD5nRwEvd/TCg5Mx7D5SXzoo4LTx+8HLqtQJhJk/81/Tjh7siOQKBgQCz\n82rLvolmh+Fuv3zTseM5G/3MxYA9ScMRKnBrqI0MUG1Vsle3Y6tQP70WvaH5YlEE\n9pdVyEwySnZDm/ghIpAMBys3LJT1IHNjQLKBWGM0EqCq43O2Typ8gM9ltixU4iqh\nVE3sLx1gF2iiloQojd+M/+m+KYuUrsb5w9d6UW/GQQKBgQDInWB6k5iUZkVVkJDy\nMfmHLrmR9x41k4jhNWykjTSDDXs7s9+HZbr6/lu053IsRpFV0xsGjzWug8/929bv\nEZdl+dWHCOnSNGeD8BOqCxDJsqsYgm2DlDs1DagFeZg3PNVdFLirJgWPdahhA1Y+\nobQeHGFF8Q2Sw4AzgRKD1WfJrA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "chicagotaxi@chicagotaxitrips-431912.iam.gserviceaccount.com",
+  "client_id": "114298967678857157754",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chicagotaxi%40chicagotaxitrips-431912.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com" }}
+        project_id: chicagotaxitrips-431912
+
+    - name: Upload DAGs to Cloud Composer
+      run: |
+        gsutil cp -r dags/* gs://us-central1-composortaxi-b32cfc72-bucket/dags/
+        gsutil cp -r plugins/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/
+
+
+
