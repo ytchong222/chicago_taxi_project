@@ -32,12 +32,12 @@ jobs:
     - name: Set up DBT Profiles
       run: |
         mkdir -p ~/.dbt
-        echo "$DBT_PROFILES" > ~/.dbt/profiles.yml
+        echo "$DBT_PROFILES_YML" > ~/.dbt/profiles.yml
       env:
-        DBT_PROFILES: ${{ secrets.DBT_PROFILES_YML }}  # Use secrets to store profiles.yml content
+        DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}  # Ensure this secret is properly set
 
     - name: Run DBT Models
-      working-directory: ../chicago_taxi_project/dbt_taxi_project  # Set the working directory to where dbt_project.yml is located
+      working-directory: ../chicago_taxi_project/dbt_taxi_project  # Adjust if needed
       run: |
         dbt deps    # Install dependencies
         dbt seed    # Load seeds (optional)
