@@ -23,9 +23,10 @@ jobs:
         pip install --upgrade pip
         pip install dbt-bigquery
 
+
     - name: Decode and Create Service Account Key File
       run: |
-        echo '${{ secrets.GCP_SA_KEY }}' | base64 -d > ${{ runner.temp }}/gcp-key.json
+        echo "${{ secrets.GCP_SA_KEY_BASE64 }}" | base64 -d > ${{ runner.temp }}/gcp-key.json
         echo "GOOGLE_APPLICATION_CREDENTIALS=${{ runner.temp }}/gcp-key.json" >> $GITHUB_ENV
 
     - name: Set up Google Cloud SDK
