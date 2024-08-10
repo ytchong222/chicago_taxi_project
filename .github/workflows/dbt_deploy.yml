@@ -33,13 +33,13 @@ jobs:
       with:
         project_id: chicagotaxitrips-431912
 
-    - name: Set up DBT Profiles
+    - name: Decode and save service account key
       run: |
-        mkdir -p ~/.dbt
-        echo "$DBT_PROFILES_YML" | base64 -d > ~/.dbt/profiles.yml
+        echo "$GCP_SA_KEY" | base64 -d > /home/runner/work/_temp/gcp-key.json
+        echo "GOOGLE_APPLICATION_CREDENTIALS=/home/runner/work/_temp/gcp-key.json" >> $GITHUB_ENV
       env:
-        DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
-        
+        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
 
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
