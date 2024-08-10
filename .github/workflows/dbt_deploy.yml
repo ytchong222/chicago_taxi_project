@@ -3,7 +3,7 @@ name: Deploy DBT Models to BigQuery
 on:
   push:
     branches:
-      - master  # Trigger deployment on push to the master branch
+      - master
 
 jobs:
   deploy:
@@ -23,9 +23,9 @@ jobs:
         pip install --upgrade pip
         pip install dbt-bigquery
 
-    - name: Create service account key file
+    - name: Decode and Create Service Account Key File
       run: |
-        echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
+        echo '${{ secrets.GCP_SA_KEY }}' | base64 -d > ${{ runner.temp }}/gcp-key.json
         echo "GOOGLE_APPLICATION_CREDENTIALS=${{ runner.temp }}/gcp-key.json" >> $GITHUB_ENV
 
     - name: Set up Google Cloud SDK
@@ -39,7 +39,13 @@ jobs:
         echo "$DBT_PROFILES_YML" > ~/.dbt/profiles.yml
       env:
         DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
+    
+    - name: Print GCP Key File (for debugging)
+      run: cat ${{ runner.temp }}/gcp-key.json
 
+    - name: Validate JSON Key
+      run: jq . ${{ runner.temp }}/gcp-key.json
+      
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
       run: |
