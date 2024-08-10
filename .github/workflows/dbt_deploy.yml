@@ -40,14 +40,10 @@ jobs:
       env:
         DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
         
-    - name: Debug DBT Profiles YML
+    - name: Decode and Debug DBT Profiles YML
       run: |
-        echo "$DBT_PROFILES_YML" > /home/runner/work/_temp/profiles.yml
+        echo "$DBT_PROFILES_YML" | base64 -d > /home/runner/work/_temp/profiles.yml
         cat /home/runner/work/_temp/profiles.yml
-      env:
-        DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
-
-
 
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
