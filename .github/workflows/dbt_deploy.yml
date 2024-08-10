@@ -54,3 +54,6 @@ jobs:
       with:
         name: dbt-logs
         path: target/*.log
+    
+    - name: Print GCP Key File
+      run: cat ${{ runner.temp }}/gcp-key.json
