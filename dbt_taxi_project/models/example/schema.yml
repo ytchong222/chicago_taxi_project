@@ -2,18 +2,8 @@
 version: 2
 
 models:
-  - name: taxi_trips_summary
-    description: "A starter dbt model"
-    columns:
-      - name: taxi_id
-        description: "The primary key for this table"
-        data_tests:
-          - not_null
-    columns:
-      - name: tdate
-        description: "The taxi working date"
-        data_tests:
-          - not_null
+
+   
           
   - name: daily_taxi_trips
     description: "daily_taxi_trips"
@@ -21,17 +11,9 @@ models:
       - name: tdate
         description: "The taxi working date"
         data_tests:
-          - unique
           - not_null
           
-  - name: daily_taxi_company
-    description: "daily_taxi_company"
-    columns:
-      - name: tdate
-        description: "The taxi working date"
-        data_tests:
-          - unique
-          - not_null
-      
+  
+         
 
   
