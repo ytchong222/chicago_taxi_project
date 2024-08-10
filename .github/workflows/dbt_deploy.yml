@@ -33,11 +33,12 @@ jobs:
       with:
         project_id: chicagotaxitrips-431912
 
-    - name: Decode and save service account key
+     - name: Decode and Save GCP Key
       run: |
-        echo "$GCP_SA_KEY" | base64 -d > /home/runner/work/_temp/gcp-key.json
+        echo "$GCP_SA_KEY_BASE64" | base64 -d > /tmp/gcp-key.json
+        cat /tmp/gcp-key.json  # Display the decoded key (For debugging purposes only, remove this line after confirming it's correct)
       env:
-        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        GCP_SA_KEY_BASE64: ${{ secrets.GCP_SA_KEY_BASE64 }}
 
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
