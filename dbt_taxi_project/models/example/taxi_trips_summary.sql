@@ -11,7 +11,7 @@ WITH raw_data AS (
         tips,
         trip_miles,
 		payment_type,
-		extra,
+		extras,
 		tolls,
         case when trip_seconds is null then abs(TIMESTAMP_DIFF(trip_end_timestamp, trip_start_timestamp, SECOND)) end as trip_seconds
     FROM
@@ -27,7 +27,7 @@ SELECT
     SUM(tips) AS total_tips,
     SUM(trip_miles) AS total_miles,
     SUM(trip_seconds) AS total_seconds,
-	sum(extra) as total_extra_payment,
+	sum(extras) as total_extra_payment,
 	sum(tolls) as total_tolls,
 	payment_type
 FROM
