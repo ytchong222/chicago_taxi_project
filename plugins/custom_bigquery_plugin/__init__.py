@@ -7,7 +7,3 @@ from custom_bigquery_plugin.bq_helpers import (
     run_load_data_to_bigquery
 )
 
-# plugins/custom_bigquery_plugin/__init__.py
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#from airflow.plugins_manager import AirflowPlugin
