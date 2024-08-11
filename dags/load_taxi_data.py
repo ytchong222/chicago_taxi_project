@@ -3,6 +3,7 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta  # Import timedelta
 from google.cloud import bigquery
 from google.cloud.exceptions import NotFound
+from airflow.operators.dummy import DummyOperator
 
 # Define the default arguments for the DAG
 default_args = {
@@ -26,6 +27,9 @@ with DAG(
     end_date=datetime(2024, 8, 9),    # Adjust the end date as needed
 ) as dag:
 
+    start_task = DummyOperator(
+        task_id='start_task',
+    )
     def create_bq_dataset_if_not_exists(client, dataset_id, location='US'):
         try:
             client.get_dataset(dataset_id)
@@ -123,4 +127,4 @@ with DAG(
         python_callable=run_load_data_to_bigquery,
     )
 
-    import_data_task >> load_data_task
+    start_task >> import_data_task >> load_data_task
