@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from datetime import datetime, timedelta  # Import timedelta
+from datetime import datetime, timedelta
 from google.cloud import bigquery
 from google.cloud.exceptions import NotFound
 from airflow.operators.dummy import DummyOperator
@@ -30,6 +30,7 @@ with DAG(
     start_task = DummyOperator(
         task_id='start_task',
     )
+
     def create_bq_dataset_if_not_exists(client, dataset_id, location='US'):
         try:
             client.get_dataset(dataset_id)
