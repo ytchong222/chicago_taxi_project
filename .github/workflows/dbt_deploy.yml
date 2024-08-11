@@ -51,21 +51,26 @@ jobs:
         echo "$DBT_PROFILES_YML" > /home/runner/.dbt/profiles.yml
       env:
         DBT_PROFILES_YML: ${{ secrets.DBT_PROFILES_YML }}
-         
+
+    - name: List Files in Working Directory
+      run: |
+        ls -la
+
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
       run: |
+        mkdir -p logs
         dbt deps
         dbt seed
-        dbt run
+        dbt run --log-path logs
         dbt test
 
-    - name: Check contents of target directory
-      run: ls -la target/
+    - name: Check contents of logs directory
+      run: ls -la logs/
 
     - name: Upload Artifacts (Optional)
       if: success()
       uses: actions/upload-artifact@v3  # Updated version
       with:
         name: dbt-logs
-        path: target/*.log
+        path: logs/*.log  # Update this to match the actual log directory
