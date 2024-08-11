@@ -11,7 +11,7 @@ WITH recent_data AS (
     FROM
         dbt_taxi_trips.taxi_trips_summary
     WHERE
-        DATE(tdate) >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 MONTH)
+        DATE(tdate) >= DATE_SUB('2024-01-02', INTERVAL 3 MONTH)
 ),
 aggregated_earnings AS (
     SELECT
