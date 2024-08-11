@@ -23,8 +23,8 @@ with DAG(
     description='A DAG to load data into BigQuery',
     schedule_interval='@daily',  # Adjust the schedule interval as needed
     catchup=False,
-    start_date=datetime(2024, 8, 8),  # Adjust the start date as needed
-    end_date=datetime(2024, 8, 9),    # Adjust the end date as needed
+    start_date=datetime(2024, 8, 10),  # Adjust the start date as needed
+    end_date=datetime(2024, 8, 11),    # Adjust the end date as needed
 ) as dag:
 
     start_task = DummyOperator(
