@@ -35,4 +35,4 @@ FROM
     aggregated_earnings
 ORDER BY
     total_earnings DESC
-LIMIT 100;
+LIMIT 100
