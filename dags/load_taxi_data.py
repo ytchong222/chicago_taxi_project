@@ -9,11 +9,11 @@ from airflow.operators.dummy import DummyOperator
 default_args = {
     'owner': 'teck_chong',
     'depends_on_past': False,
-    'email': ['ytchong222@gmail.com'],  # Replace with your email address
-    'email_on_failure': True,  # Enable email notifications on failure
-    'email_on_retry': True,    # Enable email notifications on retry
+    'email': ['ytchong222@gmail.com'],  
+    'email_on_failure': True,  
+    'email_on_retry': True,    
     'retries': 1,
-    'retry_delay': timedelta(minutes=5),  # Use timedelta for retry delay
+    'retry_delay': timedelta(minutes=5),  
 }
 
 # Define the DAG
@@ -21,10 +21,10 @@ with DAG(
     dag_id='load_taxi_data',
     default_args=default_args,
     description='A DAG to load data into BigQuery',
-    schedule_interval='@daily',  # Adjust the schedule interval as needed
+    schedule_interval='@daily',  
     catchup=False,
-    start_date=datetime(2024, 8, 10),  # Adjust the start date as needed
-    end_date=datetime(2024, 8, 11),    # Adjust the end date as needed
+    start_date=datetime(2024, 8, 10),  
+    end_date=datetime(2024, 8, 11),   
 ) as dag:
 
     start_task = DummyOperator(
