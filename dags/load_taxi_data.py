@@ -17,7 +17,7 @@ default_args = {
 
 # Define the DAG
 with DAG(
-    dag_id='load_taxi_monitoring',
+    dag_id='load_taxi_data',
     default_args=default_args,
     description='A DAG to load data into BigQuery',
     schedule_interval='@daily',  # Adjust the schedule interval as needed
