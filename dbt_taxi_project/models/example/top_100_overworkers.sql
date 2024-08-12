@@ -43,5 +43,5 @@ WHERE
 GROUP BY
     taxi_id
 ORDER BY
-    total_hours DESC
+    total_hours_trips DESC
 limit 100
