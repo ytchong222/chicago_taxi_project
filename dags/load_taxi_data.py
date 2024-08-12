@@ -43,14 +43,14 @@ with DAG(
     
     check_files = BashOperator(
         task_id='check_files',
-        bash_command='ls -l /home/airflow/gcs/plugins/dbt_taxi_trips/',
+        bash_command='ls -l /home/airflow/gcs/plugins/dbt_taxi_project/',
     )
 
     dbt_run = BashOperator(
         task_id='dbt_run',
         bash_command=(
-            'cd /home/airflow/gcs/plugins/dbt_taxi_trips/ && '
-            'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_trips'
+            'cd /home/airflow/gcs/plugins/dbt_taxi_project/ && '
+            'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_project'
         )
     )
 
