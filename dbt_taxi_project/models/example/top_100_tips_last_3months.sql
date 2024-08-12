@@ -1,4 +1,5 @@
 -- models/top_tips_last_3months.sql
+{{ config(materialized='table') }}
 WITH top_tips_last_3months AS (
     SELECT
         taxi_id,

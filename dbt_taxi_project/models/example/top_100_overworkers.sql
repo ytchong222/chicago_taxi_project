@@ -1,4 +1,5 @@
 -- models/top_100_overworker.sql
+{{ config(materialized='table') }}
  WITH top_100_overworker AS (
    select   a.taxi_id,
         a.trip_start_timestamp,
@@ -33,7 +34,7 @@
 SELECT
     taxi_id,
     COUNT(*) AS total_trips,
-    SUM(ABS(trip_duration)+trip_seconds) / 3600 AS total_hours_trips,  -- Convert seconds to hours
+    SUM(ABS(trip_duration)+trip_seconds) / 3600 AS total_hours_trips, 
     AVG(ABS(TIMESTAMP_DIFF(trip_start_timestamp, prev_trip_end_timestamp, HOUR)))  AS avg_break_hours
 FROM
     top_100_overworker

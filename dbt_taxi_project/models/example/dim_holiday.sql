@@ -1,5 +1,5 @@
 -- models/dim_holiday.sql
-
+{{ config(materialized='table') }}
 WITH holiday_data AS (
     SELECT * FROM UNNEST([
         STRUCT('2018-01-01' AS holiday_date, 'New Year Day' AS holiday_name),

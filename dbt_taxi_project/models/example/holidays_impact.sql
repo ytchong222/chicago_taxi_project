@@ -1,4 +1,5 @@
 -- models/holiday_impact.sql
+{{ config(materialized='table') }}
 WITH trip_analysis AS (
     SELECT
         FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp) AS tdate,
