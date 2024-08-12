@@ -77,5 +77,5 @@ jobs:
    
     - name: DBT Models
       run: |
-        gsutil cp -r dbt_taxi_project/models/example/* gs://chicagotaxi_data/models/
+        gsutil cp -r dbt_taxi_project/models/example/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
    

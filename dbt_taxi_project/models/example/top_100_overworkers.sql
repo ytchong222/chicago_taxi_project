@@ -45,3 +45,4 @@ GROUP BY
 ORDER BY
     total_hours_trips DESC
 limit 100
+
