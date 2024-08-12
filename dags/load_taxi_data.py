@@ -24,7 +24,7 @@ with DAG(
     schedule_interval='@daily',  
     catchup=False,
     start_date=datetime(2024, 8, 10),  
-    end_date=datetime(2024, 8, 11),   
+    end_date=datetime(2024, 8, 10),   
 ) as dag:
 
     start_task = DummyOperator(
