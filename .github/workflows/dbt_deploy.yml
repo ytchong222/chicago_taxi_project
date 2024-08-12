@@ -22,12 +22,10 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install dbt-bigquery
-
     - name: Create service account key file
       run: |
         echo "${{ secrets.GCP_SA_KEY }}" > ${{ runner.temp }}/gcp-key.json
         echo "GOOGLE_APPLICATION_CREDENTIALS=${{ runner.temp }}/gcp-key.json" >> $GITHUB_ENV
-
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v1  # Updated version
       with:
@@ -55,7 +53,6 @@ jobs:
     - name: List Files in Working Directory
       run: |
         ls -la
-
     - name: Run DBT Models
       working-directory: ../chicago_taxi_project/dbt_taxi_project
       run: |
@@ -64,7 +61,6 @@ jobs:
         dbt seed
         dbt run --log-path logs
         dbt test
-
     - name: Check contents of logs directory
       run: ls -la logs/
 
@@ -77,9 +73,4 @@ jobs:
    
     - name: DBT Models
       run: |
-        gsutil cp -r dbt_taxi_project/models/example/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/models/example/
-        gsutil cp -r dbt_taxi_project/dbt_project.yml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
-        gsutil cp -r dbt_taxi_project/profiles.yml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
-        gsutil cp -r dbt_taxi_project/packages.yaml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
-        
-   
+        gsutil cp -r dbt_taxi_project/models/example/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
