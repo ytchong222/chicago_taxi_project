@@ -69,4 +69,4 @@ SELECT
     holiday_date,
     holiday_name
 FROM
-    holiday_data;
+    holiday_data
