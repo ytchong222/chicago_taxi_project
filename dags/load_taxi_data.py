@@ -40,6 +40,11 @@ with DAG(
         task_id='load_data_to_bigquery_task',
         python_callable=run_load_data_to_bigquery,
     )
+    
+    check_files = BashOperator(
+        task_id='check_files',
+        bash_command='ls -l /home/airflow/gcs/plugins/dbt_taxi_trips/',
+    )
 
     dbt_run = BashOperator(
         task_id='dbt_run',
@@ -51,4 +56,4 @@ with DAG(
 
     
 
-    start_task >> import_data_task >> load_data_task >> dbt_run
+    start_task >> import_data_task >> load_data_task >> check_files >> dbt_run
