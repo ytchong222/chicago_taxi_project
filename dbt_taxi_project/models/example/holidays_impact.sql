@@ -12,11 +12,11 @@ WITH trip_analysis AS (
 SELECT
     ta.tdate,
     ta.total_trips,
-    ta.total_revenue,
+    ROUND(ta.total_revenue, 2) as total_revenue,
     d.holiday_name
 FROM
     trip_analysis ta
 left JOIN
-    `dbt_taxi_trips.dim_holiday` d ON cast(ta.tdate as date) = d.holiday_date
+    `dbt_taxi_trips.dim_holiday` d ON cast(ta.tdate as date) =cast(d.holiday_date as date) 
 ORDER BY
     tdate desc limit 100
