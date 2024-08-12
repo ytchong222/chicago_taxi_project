@@ -43,4 +43,4 @@ GROUP BY
     taxi_id
 ORDER BY
     total_hours DESC
-LIMIT 100;
+limit 100

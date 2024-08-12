@@ -16,5 +16,4 @@ SELECT
 FROM
     top_tips_last_3months
 ORDER BY
-    total_tips DESC
-LIMIT 100;
+    total_tips DESC limit 100
