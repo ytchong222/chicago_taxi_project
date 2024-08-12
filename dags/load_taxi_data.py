@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 from airflow.operators.dummy import DummyOperator
 
@@ -40,4 +41,14 @@ with DAG(
         python_callable=run_load_data_to_bigquery,
     )
 
-    start_task >> import_data_task >> load_data_task
+    dbt_run = BashOperator(
+        task_id='dbt_run',
+        bash_command=(
+            'cd /home/airflow/gcs/plugins/dbt_taxi_trips/ && '
+            'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_trips'
+        )
+    )
+
+    
+
+    start_task >> import_data_task >> load_data_task >> dbt_run
