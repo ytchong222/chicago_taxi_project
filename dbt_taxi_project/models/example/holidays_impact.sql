@@ -17,6 +17,6 @@ SELECT
 FROM
     trip_analysis ta
 left JOIN
-    `chicago_taxi_trips.dbt_taxi_trips` d ON cast(ta.tdate as date) = d.holiday_date
+    `dbt_taxi_trips.dim_holiday` d ON cast(ta.tdate as date) = d.holiday_date
 ORDER BY
     tdate desc limit 100
