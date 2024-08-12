@@ -77,5 +77,9 @@ jobs:
    
     - name: DBT Models
       run: |
-        gsutil cp -r dbt_taxi_project/models/example/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
+        gsutil cp -r dbt_taxi_project/models/example/* gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/models/example/
+        gsutil cp -r dbt_taxi_project/dbt_project.yml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
+        gsutil cp -r dbt_taxi_project/profiles.yml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
+        gsutil cp -r dbt_taxi_project/packages.yaml gs://us-central1-composortaxi-b32cfc72-bucket/plugins/dbt_taxi_trips/
+        
    
