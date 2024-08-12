@@ -56,4 +56,4 @@ with DAG(
 
     
 
-    start_task >> import_data_task >> load_data_task >> check_files >> dbt_run
+    start_task >> import_data_task >> load_data_task >> check_files 
