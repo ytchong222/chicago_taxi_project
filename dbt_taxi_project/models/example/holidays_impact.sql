@@ -13,7 +13,7 @@ SELECT
     ta.tdate,
     ta.total_trips,
     ROUND(ta.total_revenue, 2) as total_revenue,
-    d.holiday_name
+    case when d.holiday_name is null then 'working day' else d.holiday_name end as holiday_name
 FROM
     trip_analysis ta
 left JOIN
