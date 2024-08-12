@@ -1,13 +1,12 @@
 -- models/top_100_overworker.sql
 {{ config(materialized='table') }}
  WITH top_100_overworker AS (
-
-        SELECT
+  SELECT
             taxi_id,
             trip_start_timestamp,
             trip_end_timestamp,
             TIMESTAMP_DIFF(trip_end_timestamp, trip_start_timestamp, SECOND) end AS trip_duration,
-             LAG(trip_end_timestamp) OVER (PARTITION BY taxi_id ORDER BY trip_start_timestamp,a.trip_end_timestamp) AS prev_trip_end_timestamp
+             LAG(trip_end_timestamp) OVER (PARTITION BY taxi_id ORDER BY trip_start_timestamp,trip_end_timestamp) AS prev_trip_end_timestamp
     FROM
         `chicago_taxi_trips.taxi_trips`
  where trip_end_timestamp>=trip_start_timestamp
