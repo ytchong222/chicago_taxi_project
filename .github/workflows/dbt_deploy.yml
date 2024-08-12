@@ -74,3 +74,8 @@ jobs:
       with:
         name: dbt-logs
         path: logs/*.log  # Update this to match the actual log directory
+   
+    - name: DBT Models
+      run: |
+        gsutil cp -r dags/* gs://chicagotaxi_data/models/
+   
