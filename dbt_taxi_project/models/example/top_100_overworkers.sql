@@ -32,8 +32,8 @@
 )
 SELECT
     taxi_id,
-    COUNT(*) AS total_shifts,
-    SUM(ABS(trip_duration)+trip_seconds) / 3600 AS total_hours,  -- Convert seconds to hours
+    COUNT(*) AS total_trips,
+    SUM(ABS(trip_duration)+trip_seconds) / 3600 AS total_hours_trips,  -- Convert seconds to hours
     AVG(ABS(TIMESTAMP_DIFF(trip_start_timestamp, prev_trip_end_timestamp, HOUR)))  AS avg_break_hours
 FROM
     top_100_overworker
