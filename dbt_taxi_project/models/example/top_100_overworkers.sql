@@ -51,7 +51,7 @@ FROM
   top_100_overworker
 WHERE
   (TIMESTAMP_DIFF(trip_start_timestamp, prev_trip_end_timestamp, MINUTE)/60) >0  
-  and (TIMESTAMP_DIFF(trip_start_timestamp, prev_trip_end_timestamp, MINUTE)/60) < 8  
+  and (TIMESTAMP_DIFF(trip_start_timestamp, prev_trip_end_timestamp, MINUTE)/60) <=8  
 GROUP BY
   taxi_id
 ORDER BY
