@@ -4,8 +4,8 @@ WITH trip_revenue AS (
     SELECT
         taxi_id,
         company,
-        COALESCE(pickup_community_area, 'NA') AS dropoff_community_area,
-        COALESCE(dropoff_community_area, 'NA') AS dropoff_community_area,
+        COALESCE(CAST(pickup_community_area AS STRING), 'NA') AS pickup_community_area,
+        COALESCE(CAST(dropoff_community_area AS STRING), 'NA') AS dropoff_community_area,
         trip_start_timestamp,
         trip_end_timestamp,
         EXTRACT(DAYOFWEEK FROM trip_start_timestamp) AS day_of_week,
