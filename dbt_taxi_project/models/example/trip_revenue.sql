@@ -8,9 +8,6 @@ WITH trip_revenue AS (
         COALESCE(CAST(dropoff_community_area AS STRING), 'NA') AS dropoff_community_area,
         trip_start_timestamp,
         trip_end_timestamp,
-        EXTRACT(DAYOFWEEK FROM trip_start_timestamp) AS day_of_week,
-        EXTRACT(MONTH FROM trip_start_timestamp) AS month,
-        EXTRACT(YEAR FROM trip_start_timestamp) AS year,
         fare,
         tips,
         tolls,
@@ -19,14 +16,14 @@ WITH trip_revenue AS (
     FROM
         `chicago_taxi_trips.taxi_trips`
     WHERE
-           FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp)  BETWEEN '2023-10-01' AND '2024-01-02'  
+           FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp)  BETWEEN '2023-06-01' AND '2024-01-02'  
 )
 
 SELECT
+    FORMAT_TIMESTAMP('%Y-%m', trip_end_timestamp) as monthdate,
     company,
     pickup_community_area,
     dropoff_community_area,
-    substring(tdate,1,7) as monthdate,
     COUNT(*) AS total_trips,
     SUM(total_revenue) AS total_revenue_generated,
     AVG(total_revenue) AS avg_revenue_per_trip,
