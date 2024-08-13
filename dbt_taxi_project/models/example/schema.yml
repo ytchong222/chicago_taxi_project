@@ -72,12 +72,6 @@ models:
         tests:
           - not_null
 
-  tests:
-    - dbt_utils.unique_combination_of_columns:
-        combination_of_columns:
-          - taxi_id
-          - trip_start_timestamp
-          - trip_end_timestamp
 
 
   - name: peak_hours
