@@ -18,7 +18,7 @@ FROM
 WHERE
         FORMAT_TIMESTAMP('%Y-%m-%d', trip_start_timestamp) BETWEEN '2023-10-01' AND '2024-01-02'
 GROUP BY
-   pickup_community_area
+   day_of_week,pickup_community_area
 ORDER BY
   number_of_trips DESC
 
