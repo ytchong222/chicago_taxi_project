@@ -23,5 +23,5 @@ GROUP BY
     company,
     monthdate
 ORDER BY
-    total_revenue_generated DESC;
+    total_revenue_generated DESC
 
