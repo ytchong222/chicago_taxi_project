@@ -4,15 +4,15 @@ WITH trip_revenue AS (
     SELECT
         company,
         trip_end_timestamp,
-        (fare + tips  + extras- tolls) AS total_revenue
+        (fare + tips + extras - tolls) AS total_revenue
     FROM
         `chicago_taxi_trips.taxi_trips`
     WHERE
-           FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp)  BETWEEN '2023-06-01' AND '2024-01-02'  
+        FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp) BETWEEN '2023-06-01' AND '2024-01-02'
 )
 
 SELECT
-    FORMAT_TIMESTAMP('%Y-%m', trip_end_timestamp) as monthdate,
+    FORMAT_DATE('%Y-%m-%d', LAST_DAY(CAST(trip_end_timestamp AS DATE))) AS monthdate,
     company,
     COUNT(*) AS total_trips,
     SUM(total_revenue) AS total_revenue_generated,
@@ -22,6 +22,6 @@ FROM
 GROUP BY
     company,
     monthdate
-    
 ORDER BY
-    total_revenue_generated DESC
+    total_revenue_generated DESC;
+
