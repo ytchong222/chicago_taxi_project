@@ -4,8 +4,8 @@ WITH trip_revenue AS (
     SELECT
         taxi_id,
         company,
-        pickup_community_area,
-        dropoff_community_area,
+        COALESCE(pickup_community_area, 'NA') AS dropoff_community_area,
+        COALESCE(dropoff_community_area, 'NA') AS dropoff_community_area,
         trip_start_timestamp,
         trip_end_timestamp,
         EXTRACT(DAYOFWEEK FROM trip_start_timestamp) AS day_of_week,
@@ -26,9 +26,7 @@ SELECT
     company,
     pickup_community_area,
     dropoff_community_area,
-    year,
-    month,
-    day_of_week,
+    substring(tdate,1,7) as monthdate,
     COUNT(*) AS total_trips,
     SUM(total_revenue) AS total_revenue_generated,
     AVG(total_revenue) AS avg_revenue_per_trip,
@@ -42,9 +40,8 @@ GROUP BY
     company,
     pickup_community_area,
     dropoff_community_area,
-    year,
-    month,
-    day_of_week
+    monthdate
+    
 ORDER BY
     total_revenue_generated DESC
 LIMIT 100
