@@ -30,5 +30,5 @@ SELECT
 FROM
   day_hour_counts
 ORDER BY
-  number_of_trips DESC;
+  number_of_trips DESC
 
