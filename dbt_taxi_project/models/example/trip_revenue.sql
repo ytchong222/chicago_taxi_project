@@ -41,4 +41,3 @@ GROUP BY
     
 ORDER BY
     total_revenue_generated DESC
-LIMIT 100
