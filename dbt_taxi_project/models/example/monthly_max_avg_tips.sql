@@ -9,6 +9,6 @@ SELECT    FORMAT_DATE('%Y-%m-%d', LAST_DAY(CAST(trip_end_timestamp AS DATE))) AS
 FROM
    chicago_taxi_trips.taxi_trips
 where  FORMAT_TIMESTAMP('%Y-%m-%d', trip_start_timestamp) BETWEEN '2023-06-01' AND '2024-01-02'
-group by FORMAT_TIMESTAMP('%Y-%m-%d', trip_end_timestamp) 
+group by  monthdate
 ORDER BY
   monthdate DESC,max_tip DESC 
