@@ -50,7 +50,7 @@ with DAG(
     dbt_run = BashOperator(
         task_id='dbt_run',
         bash_command=(
-            'cd /home/airflow/gcs/plugins/dbt_taxi_project/models/example && '
+            'cd /home/airflow/gcs/plugins/dbt_taxi_project/models/example/ && '
             'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_project/models/example'
         )
     )
