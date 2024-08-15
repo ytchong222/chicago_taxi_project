@@ -4,7 +4,7 @@ from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 from airflow.operators.dummy import DummyOperator
 
-# Import functions from your custom plugin
+# Import functions custom plugin  /plugins/custom_bigquery_plugin/bq_helpers.py
 from custom_bigquery_plugin.bq_helpers import create_bq_dataset_if_not_exists, create_bq_table_if_not_exists, import_from_kaggle_to_bucket, run_load_data_to_bigquery
 
 default_args = {
@@ -30,27 +30,28 @@ with DAG(
     start_task = DummyOperator(
         task_id='start_task',
     )
-
+    #import files from kaggle to gcp bucket
     import_data_task = PythonOperator(
         task_id='import_from_kaggle',
         python_callable=import_from_kaggle_to_bucket,
     )
-
+    #load data gcp bucket files into bigquery
     load_data_task = PythonOperator(
         task_id='load_data_to_bigquery_task',
         python_callable=run_load_data_to_bigquery,
     )
-    
+    # check files in the dbt_taxi_project folders for troubleshooting
     check_files = BashOperator(
         task_id='check_files',
-        bash_command='ls -l /home/airflow/gcs/plugins/dbt_taxi_project/',
+        bash_command='ls -l /home/airflow/gcs/plugins/dbt_taxi_project/models/example/',
     )
 
+    #run all the DBT files
     dbt_run = BashOperator(
         task_id='dbt_run',
         bash_command=(
-            'cd /home/airflow/gcs/plugins/dbt_taxi_project/ && '
-            'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_project'
+            'cd /home/airflow/gcs/plugins/dbt_taxi_project/models/example && '
+            'dbt run --profiles-dir /home/airflow/gcs/plugins/dbt_taxi_project/models/example'
         )
     )
 
